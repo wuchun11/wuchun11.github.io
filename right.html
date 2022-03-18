@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>测试</title>
+    
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('div1').addEventListener('click', function() {
+                document.getElementById('img1').src = document.getElementById('img1').src
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div id="div1" style="width: 70px; height: 30px;background-color:#f1f5f1;">
+        重新播放</div>
+    <img id="img1" src="./gif_1.gif" width="800" height="800"></img>
+</body>
+
+</html>

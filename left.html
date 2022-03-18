@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>数据收集</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="stylesheet" href="./layui/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href=".\layui\Independent\S\layer官方演示与讲解（jQuery弹出层插件）_files\layer.css" tppabs=".\layui\Independent\S\layer官方演示与讲解（jQuery弹出层插件）_files\layer.css"  media="all">
+</head>
+<body>
+ 
+
+<style type="text/css">
+    .layui-table-cell {
+        height: auto;
+        line-height: 30px;
+    }
+</style>
+    
+
+ 
+<script src="./layui/layui.js"></script>
+
+<table class="layui-hide" id="demo" lay-filter="test"></table>
+
+<!-- <table class="layui-hide" id="demo" lay-filter="useruv"></table> -->
+<script type="text/html" id="barDemo">
+    <!-- <a class="layui-btn layui-btn-primary layui-btn-mini" lay-event="detail">查看</a> -->
+    <a class="layui-btn layui-btn-radius layui-btn-normal" lay-event="wendu">温度</a>
+    <a class="layui-btn layui-btn-radius layui-btn-normal" lay-event="shidu">湿度</a>
+</script>
+
+<script>
+    layui.use(function(){
+      var table = layui.table;
+      
+      //第一个实例
+      table.render({
+        elem: '#demo'
+        // ,height: 312
+        ,height: 500
+        // ,url: './layui/' //数据接口
+        ,page: true //开启分页
+        ,cellMinWidth: 80
+        // ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+        ,cols: [[ //表头
+            // {type: 'checkbox', fixed: 'left'}
+            {field: 'id', title: '序号', width:80, fixex: 'left'}
+            ,{field: 'key', title: '标识', align: 'center', width:400}
+            // ,{align: 'center', title: '操作', width: 180, toolbar: '#delivery-table-operate'}
+            ,{fixed:'right',align: 'center', width:200,toolbar:"#barDemo"}
+    
+        ]]
+    
+        ,data: [{"id":"1", "key":"房价1"}
+                ,{"id":"2", "key":"房间2"}
+                ,{"id":"3","key":"房间3"}
+                ,{"id":"4","key":"房间4"}
+                ,{"id":"5","key":"房间5"}
+                ,{"id":"6","key":"房间6"}
+            ]
+        
+      });
+
+    function getRnd(min, max) {
+        return Math.random() * (max - min + 1) + min;
+    }
+    
+    table.on('tool(test)', function(obj){
+
+    // var load_pageData = function(){
+    //     layui.use('layer', function(){
+    //     let layer = layui.layer;
+    //     let index =  layer.load(2,{ //icon支持传入0-2
+    //         shade: [0.4, '#000'], //0.5透明度的灰色背景
+    //         offset: ['40%', '45%'], //位置
+    //         content: '加载中...',
+    //         success: function (layero) {
+    //             layero.find('.layui-layer-content').css({
+    //                 'color':'#fff',
+    //                 'padding-top': '78px',
+    //                 'padding-left': '13px',
+    //                 'width': '60px',
+    //                 'font-size':'16px'
+
+    //                 });
+    //             }
+    //         });
+    //     });
+    //     }
+
+
+
+        var data = obj.data;
+        var sleep = function(time) {
+            var startTime = new Date().getTime() + parseInt(time, 10);
+            while(new Date().getTime() < startTime) {}
+        };
+        var x = Math.floor(getRnd(1800, 2300));
+        // load_pageData();
+        sleep(x);
+        layer.close(layer.index) 
+        if(obj.event === 'wendu'){
+            layer.open({
+               title: '查询结果'
+               ,content: getRnd(25, 30).toFixed(1).toString() + '℃'
+            });
+        } else if (obj.event === 'shidu') {
+            layer.open({
+               title: '查询结果'
+               ,content: getRnd(70, 80).toFixed(1).toString() + "%"
+            });            
+        }
+        });
+        
+    });
+
+</script>
+
+</body>
+</html>
